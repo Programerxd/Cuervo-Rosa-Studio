@@ -3,208 +3,185 @@ import astroLogo from '../assets/astro.svg';
 import background from '../assets/background.svg';
 ---
 
-<div id="container">
-	<img id="background" src={background.src} alt="" fetchpriority="high" />
-	<main>
-		<section id="hero">
-			<a href="https://astro.build"
-				><img src={astroLogo.src} width="115" height="48" alt="Astro Homepage" /></a
-			>
-			<h1>
-				To get started, open the <code><pre>src/pages</pre></code> directory in your project.
-			</h1>
-			<section id="links">
-				<a class="button" href="https://docs.astro.build">Read our docs</a>
-				<a href="https://astro.build/chat"
-					>Join our Discord <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 127.14 96.36"
-						><path
-							fill="currentColor"
-							d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.11 0A72.37 72.37 0 0 0 45.64 0a105.89 105.89 0 0 0-26.25 8.09C2.79 32.65-1.71 56.6.54 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.11 68.42 68.42 0 0 1-10.85-5.18c.91-.66 1.8-1.34 2.66-2a75.57 75.57 0 0 0 64.32 0c.87.71 1.76 1.39 2.66 2a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.1 105.25 105.25 0 0 0 32.19-16.14c2.64-27.38-4.51-51.11-18.9-72.15ZM42.45 65.69C36.18 65.69 31 60 31 53s5-12.74 11.43-12.74S54 46 53.89 53s-5.05 12.69-11.44 12.69Zm42.24 0C78.41 65.69 73.25 60 73.25 53s5-12.74 11.44-12.74S96.23 46 96.12 53s-5.04 12.69-11.43 12.69Z"
-						></path></svg
-					>
-				</a>
-			</section>
-		</section>
-	</main>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuervo Rosa Studio - Arte Corporal</title>
+    <script is:inline src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
 
-	<a href="https://astro.build/blog/astro-5/" id="news" class="box">
-		<svg width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg"
-			><path
-				d="M24.667 12c1.333 1.414 2 3.192 2 5.334 0 4.62-4.934 5.7-7.334 12C18.444 28.567 18 27.456 18 26c0-4.642 6.667-7.053 6.667-14Zm-5.334-5.333c1.6 1.65 2.4 3.43 2.4 5.333 0 6.602-8.06 7.59-6.4 17.334C13.111 27.787 12 25.564 12 22.666c0-4.434 7.333-8 7.333-16Zm-6-5.333C15.111 3.555 16 5.556 16 7.333c0 8.333-11.333 10.962-5.333 22-3.488-.774-6-4-6-8 0-8.667 8.666-10 8.666-20Z"
-				fill="#111827"></path></svg
-		>
-		<h2>What's New in Astro 5.0?</h2>
-		<p>
-			From content layers to server islands, click to learn more about the new features and
-			improvements in Astro 5.0
-		</p>
-	</a>
-</div>
+        .hero-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1568515387631-8b650bbcdb90?q=80&w=2070') center/cover;
+            min-height: 100vh;
+        }
 
-<style>
-	#background {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		z-index: -1;
-		filter: blur(100px);
-	}
+        .text-gradient {
+            background: linear-gradient(135deg, #E91E63 0%, #FF4081 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-	#container {
-		font-family: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif;
-		height: 100%;
-	}
+        nav a {
+            position: relative;
+            transition: color 0.3s;
+        }
 
-	main {
-		height: 100%;
-		display: flex;
-		justify-content: center;
-	}
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #E91E63;
+            transition: width 0.3s;
+        }
 
-	#hero {
-		display: flex;
-		align-items: start;
-		flex-direction: column;
-		justify-content: center;
-		padding: 16px;
-	}
+        nav a:hover::after {
+            width: 100%;
+        }
 
-	h1 {
-		font-size: 22px;
-		margin-top: 0.25em;
-	}
+        .btn-primary {
+            transition: all 0.3s ease;
+            background-color: #E91E63;
+        }
 
-	#links {
-		display: flex;
-		gap: 16px;
-	}
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(233, 30, 99, 0.3);
+            background-color: #C2185B;
+        }
 
-	#links a {
-		display: flex;
-		align-items: center;
-		padding: 10px 12px;
-		color: #111827;
-		text-decoration: none;
-		transition: color 0.2s;
-	}
+        .btn-secondary {
+            transition: all 0.3s ease;
+        }
 
-	#links a:hover {
-		color: rgb(78, 80, 86);
-	}
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            background-color: white;
+            color: #E91E63;
+        }
 
-	#links a svg {
-		height: 1em;
-		margin-left: 8px;
-	}
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Header -->
+    <header class="fixed w-full top-0 z-50 bg-white/10 backdrop-blur-md border-b border-white/10">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <h1 class="text-2xl font-bold">
+                        <span class="text-white">Cuervo Rosa</span>
+                        <span class="text-rosa-intenso"> Studio</span>
+                    </h1>
+                </div>
 
-	#links a.button {
-		color: white;
-		background: linear-gradient(83.21deg, #3245ff 0%, #bc52ee 100%);
-		box-shadow:
-			inset 0 0 0 1px rgba(255, 255, 255, 0.12),
-			inset 0 -2px 0 rgba(0, 0, 0, 0.24);
-		border-radius: 10px;
-	}
+                <!-- Navigation Desktop -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#inicio" class="text-white hover:text-rosa-intenso font-medium">Inicio</a>
+                    <a href="#portafolio" class="text-white hover:text-rosa-intenso font-medium">Portafolio</a>
+                    <a href="#servicios" class="text-white hover:text-rosa-intenso font-medium">Servicios</a>
+                    <a href="#artistas" class="text-white hover:text-rosa-intenso font-medium">Artistas</a>
+                    <a href="#contacto" class="text-white hover:text-rosa-intenso font-medium">Contacto</a>
+                </nav>
 
-	#links a.button:hover {
-		color: rgb(230, 230, 230);
-		box-shadow: none;
-	}
+                <!-- CTA Button -->
+                <a href="#agendar" class="hidden md:block text-white font-semibold px-6 py-3 rounded-full btn-primary">
+                    Agendar Cita
+                </a>
 
-	pre {
-		font-family:
-			ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono',
-			monospace;
-		font-weight: normal;
-		background: linear-gradient(14deg, #d83333 0%, #f041ff 100%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-		margin: 0;
-	}
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
 
-	h2 {
-		margin: 0 0 1em;
-		font-weight: normal;
-		color: #111827;
-		font-size: 20px;
-	}
+            <!-- Mobile Menu -->
+            <nav id="mobile-menu" class="hidden md:hidden mt-4 pb-4 space-y-4">
+                <a href="#inicio" class="block text-white hover:text-rosa-intenso font-medium">Inicio</a>
+                <a href="#portafolio" class="block text-white hover:text-rosa-intenso font-medium">Portafolio</a>
+                <a href="#servicios" class="block text-white hover:text-rosa-intenso font-medium">Servicios</a>
+                <a href="#artistas" class="block text-white hover:text-rosa-intenso font-medium">Artistas</a>
+                <a href="#contacto" class="block text-white hover:text-rosa-intenso font-medium">Contacto</a>
+                <a href="#agendar" class="block text-white font-semibold px-6 py-3 rounded-full text-center btn-primary">
+                    Agendar Cita
+                </a>
+            </nav>
+        </div>
+    </header>
 
-	p {
-		color: #4b5563;
-		font-size: 16px;
-		line-height: 24px;
-		letter-spacing: -0.006em;
-		margin: 0;
-	}
+    <!-- Hero Section -->
+    <section id="inicio" class="hero-bg flex items-center justify-center">
+        <div class="container mx-auto px-6 text-center pt-20">
+            <h2 class="text-5xl md:text-7xl lg:text-8xl font-extrabold hero-title mb-6 leading-tight">
+                Arte que Habita en tu <span class="text-gradient">Piel</span>
+            </h2>
+            
+            <p class="text-lg md:text-xl lg:text-2xl text-gray-300 max-w-4xl mx-auto mb-12 leading-relaxed">
+                En Cuervo Rosa Studio, transformamos ideas en arte corporal.<br>
+                Fusionamos diseño, técnica y seguridad para crear piezas únicas que<br class="hidden md:block">
+                cuentan tu historia.
+            </p>
 
-	code {
-		display: inline-block;
-		background:
-			linear-gradient(66.77deg, #f3cddd 0%, #f5cee7 100%) padding-box,
-			linear-gradient(155deg, #d83333 0%, #f041ff 18%, #f5cee7 45%) border-box;
-		border-radius: 8px;
-		border: 1px solid transparent;
-		padding: 6px 8px;
-	}
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+                <a href="#agendar" class="text-white font-bold px-8 py-4 rounded-full text-lg btn-primary w-full sm:w-auto">
+                    Agenda tu Cita Ahora
+                </a>
+                <a href="#portafolio" class="border-2 border-white hover:bg-white hover:text-rosa-intenso text-white font-bold px-8 py-4 rounded-full text-lg btn-secondary w-full sm:w-auto">
+                    Ver Portafolio
+                </a>
+            </div>
+        </div>
+    </section>
 
-	.box {
-		padding: 16px;
-		background: rgba(255, 255, 255, 1);
-		border-radius: 16px;
-		border: 1px solid white;
-	}
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
 
-	#news {
-		position: absolute;
-		bottom: 16px;
-		right: 16px;
-		max-width: 300px;
-		text-decoration: none;
-		transition: background 0.2s;
-		backdrop-filter: blur(50px);
-	}
+        mobileMenuBtn?.addEventListener('click', () => {
+            mobileMenu?.classList.toggle('hidden');
+        });
 
-	#news:hover {
-		background: rgba(255, 255, 255, 0.55);
-	}
+        // Close mobile menu when clicking a link
+        const mobileLinks = mobileMenu?.querySelectorAll('a');
+        mobileLinks?.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu?.classList.add('hidden');
+            });
+        });
 
-	@media screen and (max-height: 368px) {
-		#news {
-			display: none;
-		}
-	}
-
-	@media screen and (max-width: 768px) {
-		#container {
-			display: flex;
-			flex-direction: column;
-		}
-
-		#hero {
-			display: block;
-			padding-top: 10%;
-		}
-
-		#links {
-			flex-wrap: wrap;
-		}
-
-		#links a.button {
-			padding: 14px 18px;
-		}
-
-		#news {
-			right: 16px;
-			left: 16px;
-			bottom: 2.5rem;
-			max-width: 100%;
-		}
-
-		h1 {
-			line-height: 1.5;
-		}
-	}
-</style>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+                e.preventDefault();
+                const href = anchor.getAttribute('href');
+                const target = href ? document.querySelector(href) : null;
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
