@@ -1,22 +1,61 @@
+---
+// Importamos el componente de Navegación (El cuadro blanco)
+import Navbar from '../components/Navbar.astro'; 
+
+// Definimos la propiedad para que cada página pueda tener su título
+interface Props {
+    title: string;
+}
+
+// Usamos un título por defecto si no se proporciona uno
+const { title = 'Cuervo Rosa Studio' } = Astro.props;
+---
+
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <!-- Usamos el título que pasa cada página -->
+        <title>{title}</title>
+    </head>
+    <body>
+        
+        <!-- 1. INSERTAMOS LA BARRA BLANCA FIJA (Navbar) -->
+        <Navbar />
+        
+        <!-- 2. Envolvemos el contenido principal (slot) para darle el padding superior -->
+        <div class="content-wrapper">
+            <slot />
+        </div>
+        
+    </body>
 </html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+<style is:global>
+    /* VARIABLES Y ESTILOS GLOBALES */
+    :root {
+        --dark-bg: #111827; /* Fondo oscuro principal (Gris muy oscuro/Negro) */
+        --navbar-height: 4.5rem; /* Altura de la barra. Ajustar si el Navbar se ve más alto. */
+    }
+
+    html,
+    body {
+        margin: 0;
+        width: 100%;
+        min-height: 100vh;
+        
+        /* 3. Establecemos el fondo oscuro para toda la página */
+        background-color: var(--dark-bg);
+        color: white; /* Color del texto por defecto */
+        
+        font-family: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif;
+    }
+    
+    /* 4. El wrapper añade el espacio superior para que el contenido comience debajo de la barra fija */
+    .content-wrapper {
+        padding-top: var(--navbar-height);
+    }
 </style>

@@ -1,0 +1,268 @@
+---
+// Define los enlaces de navegación y el color de acento
+const navLinks = [
+    { title: "Inicio", href: "#" },
+    { title: "Portafolio", href: "#" },
+    { title: "Servicios", href: "#" },
+    { title: "Artistas", href: "#" },
+    { title: "Contacto", href: "#" },
+];
+const accentColor = "#E91E63"; // El color magenta/rosa fuerte
+---
+
+<!-- El script es necesario para manejar el menú responsive -->
+<script>
+    // Se ejecuta solo en el lado del cliente (en el navegador)
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuButton = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (menuButton && mobileMenu) {
+            menuButton.addEventListener('click', () => {
+                // Alterna la clase 'open' para mostrar/ocultar el menú
+                mobileMenu.classList.toggle('open');
+            });
+
+            // Opcional: Cerrar el menú si se hace clic en un enlace
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('open');
+                });
+            });
+        }
+    });
+</script>
+
+<header class="navbar-container">
+    <div class="logo-and-links">
+        <!-- Logo/Título -->
+        <a href="/" class="logo" style={`color: ${accentColor};`}>
+            Cuervo Rosa Studio
+        </a>
+        
+        <!-- Enlaces de Navegación para ESCRITORIO -->
+        <nav class="nav-links desktop-nav">
+            <ul>
+                {navLinks.map((link) => (
+                    <li>
+                        <a href={link.href}>{link.title}</a>
+                    </li>
+                ))}
+            </ul>
+        </nav>
+    </div>
+
+    <div class="right-section">
+        <!-- Botón "Agendar Cita" -->
+        <a href="#" class="button-cita">Agendar Cita</a>
+
+        <!-- Botón de Hamburguesa (visible solo en móviles) -->
+        <button id="menu-toggle" class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu">
+            <!-- Icono SVG de Hamburguesa -->
+            <svg class="icon-menu" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+    </div>
+</header>
+
+<!-- Menú Desplegable para MÓVILES -->
+<nav id="mobile-menu" class="mobile-nav">
+    <ul>
+        {navLinks.map((link) => (
+            <li>
+                <a href={link.href}>{link.title}</a>
+            </li>
+        ))}
+    </ul>
+</nav>
+
+
+<style define:vars={{ accentColor }}>
+    /* Variables de Color */
+    :root {
+        --accent-color: var(--accentColor); /* #E91E63 */
+        --dark-text: #111827;
+        --light-text: #ffffff;
+    }
+
+    /* --- ESCRITORIO Y GENERAL --- */
+
+    .navbar-container {
+        /* PROPIEDADES DE CAJA BLANCA */
+        background-color: var(--light-text);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        
+        /* LAYOUT Y POSICIONAMIENTO */
+        width: 100%;
+        padding: 1rem 1.5rem; 
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        /* Evita que los elementos se envuelvan en escritorio */
+        flex-wrap: nowrap; 
+        
+        position: fixed; 
+        top: 0;
+        left: 0;
+        z-index: 10;
+    }
+    
+    .right-section {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem; 
+        flex-shrink: 0; 
+    }
+
+    .logo-and-links {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-grow: 1; 
+        flex-wrap: nowrap; 
+        min-width: 0; 
+    }
+
+    .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: opacity 0.2s;
+        color: var(--accent-color); 
+        flex-shrink: 0; 
+    }
+
+    .nav-links {
+        flex-grow: 1; 
+    }
+
+    .nav-links ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: flex-start; 
+        gap: 1rem;
+    }
+    
+    .nav-links a {
+        text-decoration: none;
+        color: var(--dark-text);
+        font-weight: 500;
+        transition: color 0.2s;
+        padding: 0.5rem 0;
+        white-space: nowrap; 
+    }
+
+    .nav-links a:hover {
+        color: var(--accent-color);
+    }
+
+    .button-cita {
+        text-decoration: none;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 9999px;
+        font-weight: 600;
+        transition: background-color 0.2s, box-shadow 0.2s;
+        background: linear-gradient(83.21deg, #FF3366 0%, #E91E63 100%); 
+        box-shadow: 0 4px 6px rgba(233, 30, 99, 0.3);
+        flex-shrink: 0; 
+    }
+    
+    .button-cita:hover {
+        background: linear-gradient(83.21deg, #E91E63 0%, #FF3366 100%); 
+        box-shadow: 0 6px 8px rgba(233, 30, 99, 0.4);
+    }
+    
+    /* El botón de hamburguesa se oculta en escritorio */
+    .menu-toggle {
+        display: none; 
+    }
+    
+    /* El menú móvil se oculta por defecto */
+    .mobile-nav {
+        display: none;
+    }
+
+    /* --- RESPONSIVE: TABLET Y MÓVIL (Menos de 992px) --- */
+    /* AJUSTE CLAVE: Cambiamos el breakpoint a 992px para que el menú móvil aparezca antes */
+    @media (max-width: 992px) {
+        .navbar-container {
+            padding: 0.75rem 1rem;
+        }
+
+        /* 1. Ocultar el menú de navegación de escritorio */
+        .desktop-nav {
+            display: none; 
+        }
+        
+        /* 2. Mostrar el botón de hamburguesa */
+        .menu-toggle {
+            display: block;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            color: var(--dark-text);
+            margin-left: 0.5rem;
+        }
+        
+        .menu-toggle .icon-menu {
+            color: var(--dark-text);
+        }
+
+        /* 3. Estilo del menú desplegable */
+        .mobile-nav {
+            position: fixed;
+            /* La altura de la barra es generalmente 4.5rem, necesitamos que el menú inicie ahí */
+            top: 4.5rem; 
+            left: 0;
+            width: 100%;
+            background-color: var(--light-text);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 9;
+            /* Se oculta por defecto y se muestra con la clase 'open' */
+            height: 0;
+            overflow: hidden;
+            transition: height 0.3s ease-in-out;
+        }
+        
+        .mobile-nav.open {
+            /* Calcula la altura total de los enlaces */
+            height: auto; 
+            max-height: 80vh; 
+            overflow-y: auto;
+        }
+
+        .mobile-nav ul {
+            list-style: none;
+            padding: 1rem 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-nav li {
+            border-bottom: 1px solid #f1f1f1;
+        }
+
+        .mobile-nav a {
+            display: block;
+            text-decoration: none;
+            color: var(--dark-text);
+            font-weight: 500;
+            padding: 1rem 2rem;
+            transition: background-color 0.2s;
+        }
+
+        .mobile-nav a:hover {
+            background-color: #f5f5f5;
+            color: var(--accent-color);
+        }
+    }
+</style>
