@@ -1,0 +1,292 @@
+---
+// Definición del color de acento (Rosa fuerte)
+const accentColor = "#E91E63"; 
+---
+
+<!-- Este script maneja la apertura y cierre del modal -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Obtenemos los elementos
+    const modalOverlay = document.getElementById('login-modal-overlay');
+    const closeButton = document.getElementById('close-modal-btn');
+    const modal = document.getElementById('login-modal');
+    const openButton = document.getElementById('open-login-btn'); // 👈 nuevo
+
+    // Verificamos que todos existan
+    if (modalOverlay && closeButton && modal && openButton) {
+
+        // 👉 1. Abrir modal al hacer clic en el botón "Iniciar Sesión"
+        openButton.addEventListener('click', () => {
+            modalOverlay.classList.add('open');
+        });
+
+        // 👉 2. Cerrar al hacer clic en la X
+        closeButton.addEventListener('click', () => {
+            modalOverlay.classList.remove('open');
+        });
+
+        // 👉 3. Cerrar al hacer clic fuera del modal (fondo oscuro)
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                modalOverlay.classList.remove('open');
+            }
+        });
+
+        // 👉 4. Cerrar con la tecla ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                modalOverlay.classList.remove('open');
+            }
+        });
+    }
+});
+</script>
+
+<!-- Botón para abrir el modal -->
+<button id="open-login-btn" class="open-btn">Iniciar Sesión</button>
+
+<!-- OVERLAY: El fondo oscuro que cubre toda la pantalla -->
+<div id="login-modal-overlay" class="modal-overlay">
+    
+    <!-- MODAL: La tarjeta de inicio de sesión -->
+    <div id="login-modal" class="modal-content">
+        <div class="modal-header">
+            <h2 class="title">Iniciar Sesión</h2>
+            <button id="close-modal-btn" class="close-btn" aria-label="Cerrar">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" 
+                     fill="none" stroke="currentColor" stroke-width="2.5" 
+                     stroke-linecap="round" stroke-linejoin="round" width="24" height="24">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Formulario de Inicio de Sesión -->
+        <form class="login-form">
+            <div class="input-group">
+                <label for="email">Correo Electrónico</label>
+                <input type="email" id="email" name="email" placeholder="tucorreo@ejemplo.com" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" required>
+            </div>
+            
+            <button type="submit" class="submit-btn">Ingresar</button>
+        </form>
+
+        <div class="footer-buttons">
+            <a href="#" class="reset-btn">¿Olvidaste tu contraseña?</a>
+            <a href="#" class="register-link">¿No tienes cuenta?</a>
+            <a href="#" class="register-btn">¡Crear Nueva Cuenta!</a>
+        </div>
+    </div>
+</div>
+
+<style define:vars={{ accentColor }}>
+:root {
+    --accent-color: var(--accentColor);
+    --dark-bg: #111827;
+    --modal-bg: #ffffff;
+    --border-color: #e5e7eb;
+}
+
+/* Botón para abrir el modal */
+.open-btn {
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(83.21deg, #FF3366 0%, var(--accent-color) 100%);
+    color: white;
+    border: none;
+    border-radius: 9999px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.open-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+/* (Resto de tus estilos originales aquí ↓) */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.open {
+    visibility: visible;
+    opacity: 1;
+}
+    /* -------------------------------------- */
+    /* 2. MODAL CONTENT (La Tarjeta Blanca) */
+    /* -------------------------------------- */
+
+    .modal-content {
+        background-color: var(--modal-bg);
+        color: var(--dark-bg);
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        max-width: 450px;
+        width: 90%; /* Responsivo: Ocupa el 90% del ancho en móviles */
+        
+        /* Animación de entrada */
+        transform: translateY(-50px);
+        transition: transform 0.3s ease;
+    }
+    
+    .modal-overlay.open .modal-content {
+        transform: translateY(0); /* Vuelve a la posición central cuando se abre */
+    }
+
+    /* -------------------------------------- */
+    /* 3. Estilos del Formulario */
+    /* -------------------------------------- */
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin: 0;
+        color: var(--dark-bg);
+    }
+
+    .close-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        color: #6b7280; /* Gris */
+        transition: color 0.2s;
+    }
+
+    .close-btn:hover {
+        color: var(--accent-color);
+    }
+
+    .input-group {
+        margin-bottom: 1rem;
+    }
+
+    .input-group label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        font-size: 0.95rem;
+    }
+
+    .input-group input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        font-size: 1rem;
+        box-sizing: border-box;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    
+    .input-group input:focus {
+        outline: none;
+        border-color: var(--accent-color);
+        box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.2);
+    }
+
+    .submit-btn {
+    width: 180px; /* 👈 El botón se ajusta al texto */
+    display: block;
+    margin: 1.5rem auto 0 auto; /* 👈 Lo centra horizontalmente */
+    padding: 1.1rem 2rem; /* 👈 Reduce altura y ancho interno */
+    border: none;
+    border-radius: 6px;
+    font-size: 1.4rem; /* 👈 Texto un poco más pequeño */
+    font-weight: 600;
+    color: var(--dark-bg);
+    background-color: #f3f4f6;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    }
+
+    .submit-btn:hover {
+    background-color: #e5e7eb;
+    transform: translateY(-1px);
+    }
+
+    /* -------------------------------------- */
+    /* 4. Pie de Página del Modal (Ahora con Botones) */
+    /* -------------------------------------- */
+
+    .footer-buttons {
+        text-align: center;
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border-color);
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem; /* Aumentado a 0.75rem para más espacio */
+    }
+    
+    /* Estilo para el enlace de registro (como texto clickable) */
+    .register-link {
+        font-size: 0.9rem;
+        color: #6b7280; /* Color de texto suave */
+        margin: 0;
+        text-decoration: none; /* Aseguramos que no tenga subrayado */
+        transition: color 0.2s;
+    }
+    
+    .register-link:hover {
+        color: var(--accent-color); /* Cambia a rosa al pasar el ratón */
+        text-decoration: underline; /* Agregamos subrayado al pasar el ratón */
+    }
+
+    /* Estilo base para ambos enlaces/botones */
+    .footer-buttons a {
+        display: block;
+        width: 100%;
+        text-decoration: none;
+        font-weight: 600;
+        padding: 0.6rem 1rem;
+        border-radius: 6px;
+        transition: background-color 0.2s, color 0.2s;
+    }
+    
+    /* Botón para Restablecer Contraseña (Estilo secundario) */
+    .reset-btn {
+        color: var(--dark-bg);
+        background-color: #f3f4f6; /* Gris claro */
+    }
+
+    .reset-btn:hover {
+        background-color: #e5e7eb; /* Gris un poco más oscuro al pasar el ratón */
+    }
+
+    /* Botón para Registrar (Estilo primario, similar al botón de Ingresar) */
+    .register-btn {
+        color: white;
+        background-color: var(--accent-color); 
+        background: linear-gradient(83.21deg, #FF3366 0%, var(--accent-color) 100%);
+        box-shadow: 0 2px 5px rgba(233, 30, 99, 0.2);
+    }
+
+    .register-btn:hover {
+        opacity: 0.9;
+    }
+</style>

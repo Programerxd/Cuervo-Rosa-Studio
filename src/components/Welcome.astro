@@ -1,110 +1,113 @@
 ---
-// Aseguramos que no haya código o imports de Astro sobrantes aquí
+// Definición del color de acento para los botones (Magenta/Rosa fuerte)
+const accentColor = "#E91E63"; 
 ---
 
-<main>
-    <section id="hero">
-        
+<!-- Este script se ejecuta en el navegador (client-side) para manejar la interacción -->
+<script>
+    // Se espera a que el documento esté completamente cargado
+    document.addEventListener('DOMContentLoaded', () => {
+        // Obtenemos el botón grande de "Agendar tu Cita Ahora"
+        const citaButton = document.getElementById('agendar-cita-btn');
+        // Obtenemos el modal de inicio de sesión (que se definirá en el Layout)
+        const loginModal = document.getElementById('login-modal-overlay');
+
+        if (citaButton && loginModal) {
+            // Cuando se hace clic en el botón...
+            citaButton.addEventListener('click', (e) => {
+                e.preventDefault(); // Evita que el enlace salte a otra página
+                loginModal.classList.add('open'); // Añade la clase 'open' para mostrar el modal
+            });
+        }
+    });
+</script>
+
+<!-- Contenedor principal centrado -->
+<main class="welcome-container">
+    <div class="content">
         <!-- Título principal -->
-        <h1>
-            Arte que Habita en tu Piel
-        </h1>
+        <h1 class="title">Arte que Habita en tu Piel</h1>
+        
+        <!-- Descripción del estudio -->
         <p class="description">
-            En Cuervo Rosa Studio, transformamos ideas en arte corporal. 
-            Fusionamos diseño, técnica y seguridad para crear piezas únicas que 
-            cuentan tu historia.
+            En Cuervo Rosa Studio, transformamos ideas en arte corporal. Fusionamos diseño, 
+            técnica y seguridad para crear piezas únicas que cuentan tu historia.
         </p>
-
-        <!-- Botones de acción -->
-        <section id="links">
-            <a class="button primary" href="#">Agenda tu Cita Ahora</a>
-            <a class="button secondary" href="#">Ver Portafolio</a>
-        </section>
-
-    </section>
+        
+        <!-- Contenedor de botones -->
+        <div class="buttons-row">
+            <!-- Botón principal (Rosa) - Se le asigna un ID para el script -->
+            <a href="#" id="agendar-cita-btn" class="button-cita" style={`background: linear-gradient(83.21deg, #FF3366 0%, ${accentColor} 100%);`}>
+                Agenda tu Cita Ahora
+            </a>
+            
+            <!-- Botón secundario (Blanco) -->
+            <a href="#" class="button-portfolio">
+                Ver Portafolio
+            </a>
+        </div>
+    </div>
 </main>
 
 <style>
-    /* Estilos del contenido principal que debe ser visible */
-    /* El valor de --navbar-height viene de Layout.astro */
-    main {
-        min-height: calc(100vh - var(--navbar-height, 4.5rem)); /* Usa espacio restante */
+    /* Estilos para el componente Welcome (centrado en la pantalla) */
+    .welcome-container {
         display: flex;
-        justify-content: center;
-        align-items: center;
+        justify-content: center; /* Centrado horizontal */
+        align-items: center; /* Centrado vertical */
+        min-height: calc(100vh - 4.5rem); /* Altura de la ventana menos la altura del navbar */
         text-align: center;
-        padding: 2rem;
+        padding: 2rem 1rem;
     }
 
-    #hero {
+    .content {
+        max-width: 700px;
+        width: 100%;
+    }
+
+    .title {
+        font-size: clamp(2.5rem, 6vw, 4rem); /* Título responsivo */
+        font-weight: 800;
+        margin-bottom: 1rem;
+        color: white;
+    }
+
+    .description {
+        font-size: clamp(1rem, 2vw, 1.25rem);
+        color: rgba(255, 255, 255, 0.85);
+        margin-bottom: 2.5rem;
+        line-height: 1.6;
+    }
+
+    .buttons-row {
         display: flex;
-        flex-direction: column;
-        align-items: center;
         justify-content: center;
-        max-width: 800px;
+        gap: 1.5rem;
+        flex-wrap: wrap; /* Permite que los botones se envuelvan en pantallas muy pequeñas */
     }
 
-    h1 {
-        font-size: 3rem; 
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-        color: white; 
+    .button-cita,
+    .button-portfolio {
+        text-decoration: none;
+        padding: 0.8rem 1.8rem;
+        border-radius: 9999px;
+        font-weight: 600;
+        transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
     
-    .description {
-        font-size: 1.1rem;
-        color: #ddd; 
-        line-height: 1.6;
-        margin-bottom: 2rem;
-    }
-
-    #links {
-        display: flex;
-        gap: 1.5rem;
-        margin-top: 1rem;
-    }
-
-    /* Estilo Base del Botón */
-    .button {
-        padding: 1rem 2rem;
-        border-radius: 12px;
-        text-decoration: none;
-        font-weight: 600;
-        transition: all 0.3s ease;
-    }
-
-    /* Botón Rosa (Agenda tu Cita Ahora) */
-    .primary {
+    .button-cita {
         color: white;
-        background: linear-gradient(90deg, #FF3366 0%, #E91E63 100%);
     }
 
-    .primary:hover {
-        opacity: 0.9;
-    }
-
-    /* Botón Blanco (Ver Portafolio) */
-    .secondary {
+    .button-portfolio {
         color: #111827;
         background-color: white;
-        border: 2px solid white;
-    }
-    
-    .secondary:hover {
-        background-color: #f0f0f0;
     }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-        h1 {
-            font-size: 2.5rem;
-        }
-        #links {
-            flex-direction: column;
-            width: 100%;
-        }
-        .button {
-            width: 100%;
-        }
+    .button-cita:hover,
+    .button-portfolio:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
     }
 </style>
