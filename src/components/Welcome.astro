@@ -25,8 +25,8 @@ const accentColor = "#E91E63";
 <!-- Contenedor principal centrado -->
 <main class="welcome-container">
     <div class="content">
-        <!-- Título principal -->
-        <h1 class="title">Arte que Habita en tu Piel</h1>
+        <!-- Título principal: se envuelve "Piel" en un <span> para aplicar color -->
+        <h1 class="title">Arte que Habita en tu <span class="highlight">Piel</span></h1>
         
         <!-- Descripción del estudio -->
         <p class="description">
@@ -49,7 +49,7 @@ const accentColor = "#E91E63";
     </div>
 </main>
 
-<style>
+<style define:vars={{ accentColor }}>
     /* Estilos para el componente Welcome (centrado en la pantalla) */
     .welcome-container {
         display: flex;
@@ -69,12 +69,17 @@ const accentColor = "#E91E63";
         font-size: clamp(2.5rem, 6vw, 4rem); /* Título responsivo */
         font-weight: 800;
         margin-bottom: 1rem;
-        color: white;
+        color: black;
+    }
+
+    /* CLASE CORREGIDA: Hacemos el selector más específico para evitar que el 'color: black' del padre lo sobrescriba */
+    .title .highlight { 
+        color: var(--accentColor); /* Utiliza el color rosa fuerte definido en el frontmatter */
     }
 
     .description {
         font-size: clamp(1rem, 2vw, 1.25rem);
-        color: rgba(255, 255, 255, 0.85);
+        color: rgba(51, 51, 51, 0.85);
         margin-bottom: 2.5rem;
         line-height: 1.6;
     }

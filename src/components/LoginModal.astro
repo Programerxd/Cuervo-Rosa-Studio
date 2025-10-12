@@ -1,134 +1,236 @@
 ---
-// Definición del color de acento (Rosa fuerte)
+// Definición del color de acento
 const accentColor = "#E91E63"; 
 ---
 
-<!-- Este script maneja la apertura y cierre del modal -->
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    // Obtenemos los elementos
-    const modalOverlay = document.getElementById('login-modal-overlay');
-    const closeButton = document.getElementById('close-modal-btn');
-    const modal = document.getElementById('login-modal');
-    const openButton = document.getElementById('open-login-btn'); // 👈 nuevo
+    // -------------------------------------------------------------
+    // GESTIÓN DEL MODAL Y EL CAMBIO DE VISTAS (LOGIN vs. REGISTER)
+    // -------------------------------------------------------------
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        const modalOverlay = document.getElementById('login-modal-overlay');
+        const closeButton = document.getElementById('close-modal-btn');
+        
+        // Contenedores de las dos vistas
+        const loginView = document.getElementById('login-view');
+        const registerView = document.getElementById('register-view');
 
-    // Verificamos que todos existan
-    if (modalOverlay && closeButton && modal && openButton) {
+        // Botones de cambio de estado
+        // Los botones se capturan por las clases open-register-view y open-login-view
+        const openRegisterBtns = document.querySelectorAll('.open-register-view');
+        const openLoginBtns = document.querySelectorAll('.open-login-view');
+        
+        // Obtenemos la referencia al título una sola vez al inicio del DOMContent
+        const modalTitle = document.getElementById('modal-title'); 
 
-        // 👉 1. Abrir modal al hacer clic en el botón "Iniciar Sesión"
-        openButton.addEventListener('click', () => {
-            modalOverlay.classList.add('open');
-        });
 
-        // 👉 2. Cerrar al hacer clic en la X
-        closeButton.addEventListener('click', () => {
-            modalOverlay.classList.remove('open');
-        });
-
-        // 👉 3. Cerrar al hacer clic fuera del modal (fondo oscuro)
-        modalOverlay.addEventListener('click', (e) => {
-            if (e.target === modalOverlay) {
-                modalOverlay.classList.remove('open');
+        // Función para manejar el estado de las vistas
+        // CORRECCIÓN: Definimos el tipo del parámetro 'islogin' como boolean para evitar el error de TypeScript.
+        const setView = (isLogin: boolean) => {
+            
+            if (modalTitle) {
+                if (isLogin) {
+                    modalTitle.textContent = 'Iniciar Sesión'; 
+                } else {
+                    modalTitle.textContent = 'Crear Cuenta'; 
+                }
             }
+            
+            // Lógica para mostrar/ocultar las vistas
+            // Usamos la comprobación opcional (?.) ya que estos elementos pueden ser null
+            if (isLogin) {
+                loginView?.classList.remove('hidden');
+                registerView?.classList.add('hidden');
+            } else {
+                loginView?.classList.add('hidden');
+                registerView?.classList.remove('hidden');
+            }
+        };
+
+        // 1. Inicializar la vista en Login
+        setView(true);
+
+        // 2. Eventos para cambiar a la vista de Registro
+        openRegisterBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                setView(false); // Mostrar vista de registro
+            });
         });
 
-        // 👉 4. Cerrar con la tecla ESC
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                modalOverlay.classList.remove('open');
-            }
+        // 3. Eventos para volver a la vista de Inicio de Sesión
+        openLoginBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                setView(true); // Mostrar vista de login
+            });
         });
-    }
-});
+
+
+        // 4. Lógica de cierre del modal
+        if (modalOverlay && closeButton) {
+            
+            // Cerrar al hacer clic en la X
+            closeButton.addEventListener('click', () => {
+                modalOverlay.classList.remove('open');
+                setView(true); // Siempre vuelve a la vista de Login al cerrar
+            });
+
+            // Cerrar al hacer clic FUERA del modal
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) {
+                    modalOverlay.classList.remove('open');
+                    setView(true); // Siempre vuelve a la vista de Login al cerrar
+                }
+            });
+
+            // Cerrar al presionar la tecla ESC
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modalOverlay.classList.contains('open')) {
+                    modalOverlay.classList.remove('open');
+                    setView(true); // Siempre vuelve a la vista de Login al cerrar
+                }
+            });
+        }
+    });
 </script>
-
-<!-- Botón para abrir el modal -->
-<button id="open-login-btn" class="open-btn">Iniciar Sesión</button>
 
 <!-- OVERLAY: El fondo oscuro que cubre toda la pantalla -->
 <div id="login-modal-overlay" class="modal-overlay">
     
     <!-- MODAL: La tarjeta de inicio de sesión -->
     <div id="login-modal" class="modal-content">
+        <!-- Encabezado y botón de cierre -->
         <div class="modal-header">
-            <h2 class="title">Iniciar Sesión</h2>
+            <!-- Título dinámico que cambia con el estado -->
+            <h2 id="modal-title" class="title">Iniciar Sesión</h2> 
             <button id="close-modal-btn" class="close-btn" aria-label="Cerrar">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" 
-                     fill="none" stroke="currentColor" stroke-width="2.5" 
-                     stroke-linecap="round" stroke-linejoin="round" width="24" height="24">
+                <!-- Icono SVG de una X -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="24" height="24">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
             </button>
         </div>
 
-        <!-- Formulario de Inicio de Sesión -->
-        <form class="login-form">
-            <div class="input-group">
-                <label for="email">Correo Electrónico</label>
-                <input type="email" id="email" name="email" placeholder="tucorreo@ejemplo.com" required>
-            </div>
-            
-            <div class="input-group">
-                <label for="password">Contraseña</label>
-                <input type="password" id="password" name="password" placeholder="••••••••" required>
-            </div>
-            
-            <button type="submit" class="submit-btn">Ingresar</button>
-        </form>
+        <!-- ============================================== -->
+        <!-- VISTA 1: FORMULARIO DE INICIO DE SESIÓN (LOGIN) -->
+        <!-- ============================================== -->
+        <div id="login-view">
+            <form class="login-form">
+                <div class="input-group">
+                    <label for="login-email">Correo Electrónico</label>
+                    <input type="email" id="login-email" name="email" placeholder="Ingrese su correo" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="login-password">Contraseña</label>
+                    <input type="password" id="login-password" name="password" placeholder="*********" required>
+                </div>
+                
+                <!-- ENLACE OLVIDASTE CONTRASEÑA -->
+                <div class="reset-link-container">
+                    <a href="#" class="reset-link">¿Olvidaste tu contraseña?</a>
+                </div>
 
-        <div class="footer-buttons">
-            <a href="#" class="reset-btn">¿Olvidaste tu contraseña?</a>
-            <a href="#" class="register-link">¿No tienes cuenta?</a>
-            <a href="#" class="register-btn">¡Crear Nueva Cuenta!</a>
+                <!-- BOTÓN PRINCIPAL DE INGRESAR -->
+                <button type="submit" class="submit-btn" style={`background: linear-gradient(83.21deg, #FF3366 0%, ${accentColor} 100%);`}>Ingresar</button>
+
+                <!-- Sección de registro (Pie de página) -->
+                <!-- Cambiamos el contenido para que sea un botón secundario con texto -->
+                <div class="register-footer single-button-footer"> 
+                    <a href="#" class="open-register-view secondary-action-btn">¿No tienes cuenta? </a>
+                </div>
+            </form>
         </div>
+
+
+        <!-- ============================================= -->
+        <!-- VISTA 2: FORMULARIO DE CREAR CUENTA (REGISTER) -->
+        <!-- Le añadimos la clase 'hidden' por defecto en el HTML -->
+        <!-- ============================================= -->
+        <div id="register-view" class="hidden"> 
+            <form class="register-form">
+                <div class="input-group">
+                    <label for="register-name">Nombre de Usuario</label>
+                    <input type="text" id="register-name" name="name" placeholder="Ingrese su nombre" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="register-email">Correo Electrónico</label>
+                    <input type="email" id="register-email" name="email" placeholder="Ingrese su correo" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="register-password">Contraseña</label>
+                    <input type="password" id="register-password" name="password" placeholder="*********" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="register-phone">Número Telefónico</label>
+                    <input type="tel" id="register-phone" name="phone" placeholder="Ingrese su telefono" required>
+                </div>
+                
+                <!-- BOTÓN PRINCIPAL DE CREAR CUENTA -->
+                <button type="submit" class="submit-btn" style={`background: linear-gradient(83.21deg, #FF3366 0%, ${accentColor} 100%);`}>Crear Cuenta</button>
+
+                <!-- Pie de página para volver al login -->
+                <div class="register-footer single-button-footer">
+                    <a href="#" class="open-login-view secondary-action-btn">¿Ya tienes cuenta? </a>
+                </div>
+            </form>
+        </div>
+
     </div>
 </div>
 
+
 <style define:vars={{ accentColor }}>
-:root {
-    --accent-color: var(--accentColor);
-    --dark-bg: #111827;
-    --modal-bg: #ffffff;
-    --border-color: #e5e7eb;
-}
+    /* Variables de Estilo */
+    :root {
+        --accent-color: var(--accentColor); /* #E91E63 */
+        --dark-bg: #111827;
+        --modal-bg: #ffffff;
+        --border-color: #e5e7eb;
+        --text-muted: #6b7280;
+        /* Nuevo color para botones secundarios */
+        --secondary-btn-bg: #f5f5f5; 
+        --secondary-btn-hover-bg: #ebebeb;
+    }
 
-/* Botón para abrir el modal */
-.open-btn {
-    padding: 0.75rem 1.5rem;
-    background: linear-gradient(83.21deg, #FF3366 0%, var(--accent-color) 100%);
-    color: white;
-    border: none;
-    border-radius: 9999px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: opacity 0.2s, transform 0.2s;
-}
+    /* Clase para ocultar elementos (usada por JS) */
+    .hidden {
+        display: none !important;
+    }
 
-.open-btn:hover {
-    opacity: 0.9;
-    transform: translateY(-1px);
-}
+    /* -------------------------------------- */
+    /* 1. OVERLAY (Fondo Oscuro y Posicionamiento) */
+    /* -------------------------------------- */
 
-/* (Resto de tus estilos originales aquí ↓) */
-.modal-overlay {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.75);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 100;
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-}
+    .modal-overlay {
+        position: fixed; 
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.75); 
+        display: flex;
+        justify-content: center; 
+        align-items: center; 
+        z-index: 100; 
 
-.modal-overlay.open {
-    visibility: visible;
-    opacity: 1;
-}
+        /* OCULTAR POR DEFECTO */
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .modal-overlay.open {
+        visibility: visible; 
+        opacity: 1; 
+    }
+
     /* -------------------------------------- */
     /* 2. MODAL CONTENT (La Tarjeta Blanca) */
     /* -------------------------------------- */
@@ -140,15 +242,18 @@ document.addEventListener('DOMContentLoaded', () => {
         border-radius: 12px;
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         max-width: 450px;
-        width: 90%; /* Responsivo: Ocupa el 90% del ancho en móviles */
+        width: 90%; 
         
         /* Animación de entrada */
         transform: translateY(-50px);
         transition: transform 0.3s ease;
+        
+        /* Aseguramos que solo el contenido activo ocupe espacio */
+        overflow: hidden; 
     }
     
     .modal-overlay.open .modal-content {
-        transform: translateY(0); /* Vuelve a la posición central cuando se abre */
+        transform: translateY(0); 
     }
 
     /* -------------------------------------- */
@@ -174,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
         border: none;
         cursor: pointer;
         padding: 0;
-        color: #6b7280; /* Gris */
+        color: var(--text-muted); 
         transition: color 0.2s;
     }
 
@@ -209,84 +314,113 @@ document.addEventListener('DOMContentLoaded', () => {
         box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.2);
     }
 
+    /* Contenedor del enlace de Olvidaste Contraseña para alineación a la derecha */
+    .reset-link-container {
+        text-align: right;
+        /* Reducimos el margen superior e inferior para que el enlace esté más cerca del input */
+        margin-top: -0.25rem; 
+        margin-bottom: 1.5rem; 
+    }
+    
+    .reset-link {
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .reset-link:hover {
+        color: var(--accent-color);
+        text-decoration: underline;
+    }
+    
+    /* Botón PRINCIPAL de INGRESAR / CREAR CUENTA */
     .submit-btn {
-    width: 180px; /* 👈 El botón se ajusta al texto */
-    display: block;
-    margin: 1.5rem auto 0 auto; /* 👈 Lo centra horizontalmente */
-    padding: 1.1rem 2rem; /* 👈 Reduce altura y ancho interno */
-    border: none;
-    border-radius: 6px;
-    font-size: 1.4rem; /* 👈 Texto un poco más pequeño */
-    font-weight: 600;
-    color: var(--dark-bg);
-    background-color: #f3f4f6;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.2s;
+        width: 100%;
+        padding: 0.75rem;
+        /* Aumentamos el margen inferior para separarlo del pie de página */
+        margin-bottom: 2rem; 
+        border: none;
+        border-radius: 9999px;
+        font-weight: 700;
+        color: white;
+        cursor: pointer;
+        transition: opacity 0.2s, transform 0.2s;
+        /* Aseguramos que la sombra y el degradado sean visibles */
+        box-shadow: 0 6px 12px rgba(233, 30, 99, 0.4); 
     }
 
     .submit-btn:hover {
-    background-color: #e5e7eb;
-    transform: translateY(-1px);
+        opacity: 0.9;
+        transform: translateY(-1px);
     }
 
     /* -------------------------------------- */
-    /* 4. Pie de Página del Modal (Ahora con Botones) */
+    /* 4. Pie de Página de Registro (Simplificado) */
     /* -------------------------------------- */
-
-    .footer-buttons {
+    
+    .register-footer {
         text-align: center;
-        margin-top: 1.5rem;
-        padding-top: 1rem;
+        padding-top: 1.5rem; 
         border-top: 1px solid var(--border-color);
         display: flex;
         flex-direction: column;
-        gap: 0.75rem; /* Aumentado a 0.75rem para más espacio */
+        gap: 0.75rem;
+        margin-top: 0; 
     }
     
-    /* Estilo para el enlace de registro (como texto clickable) */
-    .register-link {
-        font-size: 0.9rem;
-        color: #6b7280; /* Color de texto suave */
-        margin: 0;
-        text-decoration: none; /* Aseguramos que no tenga subrayado */
-        transition: color 0.2s;
+    /* Estilos específicos para la versión simplificada */
+    .register-footer.simple-footer {
+        /* Se quita, ya que usaremos single-button-footer */
     }
     
-    .register-link:hover {
-        color: var(--accent-color); /* Cambia a rosa al pasar el ratón */
-        text-decoration: underline; /* Agregamos subrayado al pasar el ratón */
+    .register-footer.single-button-footer {
+        /* Asegura que el footer solo contenga el botón/enlace, se vea centrado y espaciado */
+        padding-top: 1rem;
+        margin-top: -1rem; /* Acercamos el footer al botón de ingresar */
+        border-top: none; /* Quitamos la línea para un look más limpio */
     }
-
-    /* Estilo base para ambos enlaces/botones */
-    .footer-buttons a {
-        display: block;
+    
+    /* Estilo del nuevo botón secundario */
+    .secondary-action-btn {
+        display: block; /* Ocupa todo el ancho */
         width: 100%;
-        text-decoration: none;
+        padding: 0.75rem 1rem; 
+        border: 1px solid var(--border-color); /* Borde sutil */
+        border-radius: 9999px; 
+        font-size: 0.95rem; 
         font-weight: 600;
-        padding: 0.6rem 1rem;
-        border-radius: 6px;
-        transition: background-color 0.2s, color 0.2s;
+        text-decoration: none;
+        cursor: pointer; 
+        
+        color: var(--dark-bg);
+        background-color: var(--secondary-btn-bg); /* Gris claro */
+        
+        transition: background-color 0.2s, box-shadow 0.2s;
     }
     
-    /* Botón para Restablecer Contraseña (Estilo secundario) */
-    .reset-btn {
-        color: var(--dark-bg);
-        background-color: #f3f4f6; /* Gris claro */
+    .secondary-action-btn:hover {
+        background-color: var(--secondary-btn-hover-bg); 
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Una pequeña sombra al pasar el ratón */
     }
 
-    .reset-btn:hover {
-        background-color: #e5e7eb; /* Gris un poco más oscuro al pasar el ratón */
+
+    .register-prompt {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        margin: 0;
+    }
+    
+    .register-link-text {
+        color: var(--accent-color); 
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer; 
     }
 
-    /* Botón para Registrar (Estilo primario, similar al botón de Ingresar) */
-    .register-btn {
-        color: white;
-        background-color: var(--accent-color); 
-        background: linear-gradient(83.21deg, #FF3366 0%, var(--accent-color) 100%);
-        box-shadow: 0 2px 5px rgba(233, 30, 99, 0.2);
+    .register-link-text:hover {
+        text-decoration: underline;
     }
 
-    .register-btn:hover {
-        opacity: 0.9;
-    }
+    /* Eliminamos las reglas del botón secundario ya que fue removido del HTML */
 </style>
