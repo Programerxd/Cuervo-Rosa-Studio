@@ -16,7 +16,8 @@
       background: white;
       border-radius: 1rem;
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-      width: 420px;
+      width: 100%;
+      max-width: 420px;
       padding: 2rem;
       transition: all 0.3s ease;
     }
@@ -24,6 +25,28 @@
     .card:hover {
       transform: translateY(-4px);
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    .artist-image {
+      width: 280px;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 1rem;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .artist-image:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    .content-wrapper {
+      display: flex;
+      gap: 2rem;
+      align-items: left;
+      flex-wrap: wrap;
+      justify-content: left;
     }
 
     .btn-primary {
@@ -55,26 +78,35 @@
     .btn-secondary:hover {
       background-color: #f3f4f6;
     }
+
     .title-pink {
-  color: #e0006c;
-  font-size: 2.25rem;
+      color: #e0006c;
+      font-size: 2.25rem;
     }
 
     .font-pink {
-  color: #aa0a57;
-  font-size: 1.25rem;
+      color: #aa0a57;
+      font-size: 1.25rem;
     }
 
     .title-centered {
-  text-align: center;
-   }
+      text-align: center;
+    }
 
-   .title-box {
-  background-color: #f3f4f6;
-  padding: 2rem 2rem;
-  border-radius: 1rem;
-  text-align: center;
-   }
+    .title-box {
+      background-color: #f3f4f6;
+      padding: 2rem 2rem;
+      border-radius: 1rem;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .artist-image {
+        width: 100%;
+        max-width: 320px;
+        height: 350px;
+      }
+    }
   </style>
 </head>
 
@@ -83,42 +115,48 @@
   <h1 class="title-pink mb-10 tracking-wide drop-shadow-lg title-centered title-box">
     Cuervo Rosa Studio
   </h1>
+  
+  <div class="content-wrapper">
 
-  <div class="card relative">
-    <div class="flex items-center gap-3 mb-4">
-      <a href="https://www.instagram.com/esmebaas29" target="_blank" 
-         class="text-gray-400 hover:text-gray-600 transition flex-shrink-0"
-         aria-label="Instagram">
-        <img src="insta-logo.png" alt="Instagram" width="24" height="22">
-      </a>
-      <a href="https://www.facebook.com/share/1FqU4xMCaM/" target="_blank" 
+    <!-- Card original -->
+    <div class="card relative">
+      <div class="flex items-center gap-3 mb-4">
+        <a href="https://www.instagram.com/esmebaas29" target="_blank" 
            class="text-gray-400 hover:text-gray-600 transition flex-shrink-0"
-           aria-label="Facebook">
-          <img src="face-logo.png" alt="Facebook" width="24" height="24">
+           aria-label="Instagram">
+          <img src="insta-logo.png" alt="Instagram" width="24" height="22">
         </a>
-        <a href="https://wa.me/529971129207" target="_blank" 
-           class="text-gray-400 hover:text-gray-600 transition flex-shrink-0"
-           aria-label="WhatsApp">
-          <img src="what-logo.png" alt="WhatsApp" width="24" height="24">
-        </a>
+        <a href="https://www.facebook.com/share/1FqU4xMCaM/" target="_blank" 
+             class="text-gray-400 hover:text-gray-600 transition flex-shrink-0"
+             aria-label="Facebook">
+            <img src="face-logo.png" alt="Facebook" width="24" height="24">
+          </a>
+          <a href="https://wa.me/529971129207" target="_blank" 
+             class="text-gray-400 hover:text-gray-600 transition flex-shrink-0"
+             aria-label="WhatsApp">
+            <img src="what-logo.png" alt="WhatsApp" width="24" height="24">
+          </a>
+      </div>
+      
+      <h2 class="text-2xl font-bold text-gray-900">
+        Esmeralda Baas
+      </h2>
+
+      <p class="font-pink mb-2">Micropigmentacion, Tatuajes y Body Piercing</p>
+      <p class="text-gray-500 text-sm mb-4">8 años de experiencia</p>
+
+      <p class="text-gray-700 mb-6 leading-relaxed">
+      Ofrecemos arte permanente (Tatuajes), realce semipermanente de belleza (Micropigmentación) y adornos corporales seguros (Piercing). 
+      Tu estilo, hecho realidad con profesionalismo.
+      </p>
+
+      <div class="flex gap-3">
+        <button class="btn-primary">Ver Portafolio</button>
+        <button class="btn-secondary">Agendar con Esmeralda</button>
+      </div>
     </div>
-    
-    <h2 class="text-2xl font-bold text-gray-900">
-      Esmeralda Baas
-    </h2>
-
-    <p class="font-pink mb-2">Micropigmentacion, Tatuajes y Body Piercing</p>
-    <p class="text-gray-500 text-sm mb-4">8 años de experiencia</p>
-
-    <p class="text-gray-700 mb-6 leading-relaxed">
-    Ofrecemos arte permanente (Tatuajes), realce semipermanente de belleza (Micropigmentación) y adornos corporales seguros (Piercing). 
-    Tu estilo, hecho realidad con profesionalismo.
-    </p>
-
-    <div class="flex gap-3">
-      <button class="btn-primary">Ver Portafolio</button>
-      <button class="btn-secondary">Agendar con Esmeralda</button>
-    </div>
+        <!-- Imagen del artista a la izquierda -->
+    <img src="Artista.jpeg" alt="Esmeralda Baas" class="artist-image">
   </div>
 
 </body>
