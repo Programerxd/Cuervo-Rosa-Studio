@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nuestros productos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    .title-pink {
+      color: #e0006c;
+      font-size: 2.25rem;
+    }
+
+    .font-pink {
+      color: #aa0a57;
+      font-size: 1.25rem;
+      padding-left: 2rem;
+    }
+
+    .title-centered {
+      text-align: center;
+    }
+    .title-box {
+      background-color: #f3f4f6;
+      padding: 2rem 2rem;
+      border-radius: 1rem;
+      text-align: center;
+    }
+    
+    .stock-opciones {
+      display: flex;
+      flex-direction: column; 
+      gap: 0.5rem;
+      padding-left: 2rem;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col items-center justify-center text-gray-900 p-4">
+
+  <h1 class="title-pink mb-10 tracking-wide drop-shadow-lg title-centered title-box">
+    Nuestros Productos
+  </h1>
+  <div class="space-y-4">
+  <h3 class="text-lg font-bold text-red-600 uppercase font-pink">Stock</h3>
+  <div class="stock-opciones">
+    <label class="flex items-center text-sm cursor-pointer">
+      <input
+        type="checkbox"
+        name="stockFilter"
+        value="inStock"
+        class="form-checkbox h-4 w-4 text-gray-800 border-gray-300 rounded focus:ring-gray-800"
+      />
+      <span class="ml-2 text-gray-800">En Stock</span>
+    </label>
+
+    <label class="flex items-center text-sm cursor-pointer">
+      <input
+        type="checkbox"
+        name="stockFilter"
+        value="outOfStock"
+        class="form-checkbox h-4 w-4 text-gray-800 border-gray-300 rounded focus:ring-gray-800"
+      />
+      <span class="ml-2 text-gray-800">Agotado</span>
+    </label>
+  </div>
+</div>
+</body>
+</html>
