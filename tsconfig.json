@@ -1,5 +1,24 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"]
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "baseUrl": ".",
+    "paths": {
+      // 🛑 SOLUCIÓN AL ERROR DE RUNTIME 🛑
+      // Esto le dice a TypeScript que los módulos que empiecen por "astro/" son válidos.
+      "astro/*": ["node_modules/astro/types/*"],
+      // Configuración estándar para el alias '~'
+      "~/*": ["src/*"]
+    }
+  },
+  "include": [
+    ".astro/types.d.ts",
+    "**/*"
+  ],
+  "exclude": [
+    "dist", 
+    "node_modules"
+  ]
 }

@@ -1,14 +1,137 @@
 ---
-// 1. Importar el componente de la página de bienvenida (el contenido centrado)
-import Welcome from '../components/Welcome.astro'; 
-
-// 2. Importar la plantilla base (que ya incluye el Navbar y el fondo oscuro)
+// 🛑 BLOQUE DE FRONTMATTER (CÓDIGO DE SERVIDOR) 🛑
+// ----------------------------------------------------------------------------------
+// Importaciones necesarias para la estructura visual
 import Layout from '../layouts/Layout.astro';
+import LoginModal from '../components/LoginModal.astro';
+import Welcome from '../components/Welcome.astro'; 
+// Importaciones para Supabase y Astro Actions (Restauradas)
+
+import type { APIRoute } from 'astro';
+import { supabase } from '../lib/supabase';
+
+// ----------------------------------------------------------------------------------
+// ASTRO ACTIONS (Lógica de servidor para autenticación)
+// ----------------------------------------------------------------------------------
+
+const getFormDataValue = (formData: FormData, key: string): string | null => {
+    return formData.get(key) as string | null;
+};
+
+// Acción principal para manejar el POST
+export const POST: APIRoute = async ({ request, url, redirect }) => {
+    const action = url.searchParams.get('action');
+    const formData = await request.formData();
+
+    // 1. ACTION para el REGISTRO de un nuevo usuario (SIMPLIFICADO)
+    if (action === 'register') {
+        const email = getFormDataValue(formData, 'register-email');
+        const password = getFormDataValue(formData, 'register-password');
+        const name = getFormDataValue(formData, 'register-name'); // El nombre se usará en el futuro para 'update'
+
+        if (!email || !password || !name) {
+             return new Response(
+                JSON.stringify({ message: "Faltan campos obligatorios (Email, Contraseña, Nombre)." }),
+                { status: 400 }
+            );
+        }
+
+        try {
+            // 1a. Crear la cuenta de Supabase Auth
+            // Esto es todo lo que necesitamos hacer en el código de Astro.
+            // La inserción en la tabla 'usuarios' ahora es manejada por el TRIGGER de la DB.
+            const { data: authData, error: authError } = await supabase.auth.signUp({
+                email,
+                password,
+                options: {
+                    emailRedirectTo: '/dashboard', 
+                }
+            });
+
+            if (authError) {
+                console.error("Error de registro de Auth:", authError.message);
+                return new Response(
+                    JSON.stringify({ message: `Error al registrar: ${authError.message}` }),
+                    { status: 500 }
+                );
+            }
+            
+            // --- Lógica de inserción de perfil eliminada/simplificada ---
+            // Si Supabase no requiere confirmación, la sesión se establece y redirigirá.
+            if (authData.session) {
+                return redirect('/dashboard');
+            }
+            
+            // Si Supabase REQUIERE confirmación, enviamos el mensaje de éxito.
+            return new Response(
+                JSON.stringify({ message: "Registro exitoso. Revisa tu correo electrónico para confirmar la cuenta." }),
+                { status: 200 }
+            );
+
+        } catch (e) {
+            console.error("Error inesperado en el registro:", e);
+            return new Response(
+                JSON.stringify({ message: "Ocurrió un error inesperado en el servidor." }),
+                { status: 500 }
+            );
+        }
+    }
+
+    // 2. ACTION para el INICIO DE SESIÓN (Se mantiene sin cambios)
+    if (action === 'login') {
+        const email = getFormDataValue(formData, 'login-email');
+        const password = getFormDataValue(formData, 'login-password');
+
+        if (!email || !password) {
+            return new Response(
+                JSON.stringify({ message: "Faltan campos obligatorios para el login." }),
+                { status: 400 }
+            );
+        }
+
+        try {
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email,
+                password,
+            });
+
+            if (error) {
+                console.error("Error de inicio de sesión:", error.message);
+                 return new Response(
+                    JSON.stringify({ message: "Credenciales inválidas o cuenta no confirmada." }),
+                    { status: 401 } // 401 Unauthorized
+                );
+            }
+
+            // Inicio de sesión exitoso. Redirigir al usuario.
+            return redirect('/dashboard'); 
+
+        } catch (e) {
+            console.error("Error inesperado en el login:", e);
+            return new Response(
+                JSON.stringify({ message: "Ocurrió un error inesperado en el servidor." }),
+                { status: 500 }
+            );
+        }
+    }
+    
+    return new Response('Solicitud no procesada', { status: 400 });
+};
 ---
 
-<!-- 3. Usar el Layout como contenedor principal.
-     El error se debe a que Layout exige el atributo 'title', así que lo agregamos. -->
 <Layout title="Cuervo Rosa Studio - Arte en tu Piel">
-    <!-- 4. Colocar el componente Welcome dentro del Layout -->
-    <Welcome />
+    <!-- 
+        El componente Welcome.astro maneja el título principal y el botón de CTA.
+    -->
+    <Welcome /> 
+
+    <!-- El Modal de Login/Registro se incluye aquí -->
+    <LoginModal />
+
+    <style>
+        /* Estilos generales de la página, si los hay */
+        html {
+            /* Asegúrate de que el body no tenga padding o margin extra si el welcome es full-height */
+        }
+    </style>
 </Layout>
