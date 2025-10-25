@@ -1,70 +1,470 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nuestros productos</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE-edge" />
+    <meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<title>Pagina Producto</title>
+		<link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container-title">Nuestros Productos</div>
+    <section class="Container-related-products">
+      <div class="card-list-products">
+        <!-- Producto 1 -->
+        <div class="card"
+          data-producto="Vaselina Boycott">
+          <div class="card-img">
+            <img 
+            src="img/Vaselina-Boycott.png"
+            alt="producto-1"
+            />
+          </div>
+          <div class="info-card">
+            <div class="text-product">
+              <h3>Vaselina Boycott</h3>
+              <p class="description">Lubricante topico y sellador de pigmentos</p>
+            </div>
+            <div class="price">250g-$275 y 400g-$550</div>
+          </div>
+        </div>
+        <!-- Producto 2 -->
+        <div class="card"
+        data-producto="Campos desechables">
+					<div class="card-img">
+						<img
+							src="img/Campos-desechables.png"
+							alt="producto-2"
+						/>
+					</div>
+					<div class="info-card">
+						<div class="text-product">
+							<h3>Campos desechables</h3>
+							<p class="description">Impermeables, absorbentes e higienicos</p>
+						</div>
+						<div class="price">$78</div>
+					</div>
+				</div>
+        <!-- Producto 3 -->
+        <div class="card"
+        data-producto="Cubre clip pen">
+					<div class="card-img">
+						<img
+							src="img/Clip-cord.png"
+							alt="producto-3"
+						/>
+					</div>
+					<div class="info-card">
+						<div class="text-product">
+							<h3>Cubre clip pen</h3>
+							<p class="description">cip cord</p>
+						</div>
+						<div class="price">20pz x $30 y 100pz x $100</div>
+					</div>
+				</div>
+        <!-- Producto 4 -->
+        <div class="card"
+        data-producto="Hilo para Mapping">
+					<div class="card-img">
+						<img
+							src="img/Hilo-Mapping.png"
+							alt="producto-4"
+						/>
+					</div>
+					<div class="info-card">
+						<div class="text-product">
+							<h3>Hilo para Mapping</h3>
+							<p class="description">Para diseños de cejas y otros</p>
+						</div>
+						<div class="price">$35</div>
+					</div>
+				</div>
+        <!-- Producto 5-->
+        <div class="card"
+        data-producto="Lapiz para cejas">
+					<div class="card-img">
+						<img
+							src="img/Lapiz-Cera.png"
+							alt="producto-5"
+						/>
+					</div>
+					<div class="info-card">
+						<div class="text-product">
+							<h3>Lapiz de cera para cejas</h3>
+							<p class="description">Mapping larga duracion, resistente al agua</p>
+						</div>
+						<div class="price">$70</div>
+					</div>
+				</div>
+        <!-- Producto 6 -->
+        <div class="card"
+        data-producto="Piseta">
+					<div class="card-img">
+						<img
+							src="img/Piseta.png"
+							alt="producto-6"
+						/>
+					</div>
+					<div class="info-card">
+						<div class="text-product">
+							<h3>Piseta</h3>
+							<p class="description">250ml y 500ml</p>
+						</div>
+						<div class="price">$250ml x $45 y 500ml x $55</div>
+					</div>
+				</div>
+        <!-- Producto 7 -->
+        <div class="card"
+        data-producto="Papel Hectografico">
+					<div class="card-img">
+						<img
+							src="img/Papel-Hectografico.png"
+							alt="producto-7"
+						/>
+					</div>
+					<div class="info-card">
+						<div class="text-product">
+							<h3>Papel Hectografico</h3>
+							<p class="description">Papel Hectografico para impresora</p>
+						</div>
+						<div class="price">$30</div>
+					</div>
+				</div>
+        <!-- Producto 8 -->
+        <div class="card"
+        data-producto="Papel Hectografico">
+					<div class="card-img">
+						<img
+							src="img/Hectografico.png"
+							alt="producto-8"
+						/>
+					</div>
+					<div class="info-card">
+						<div class="text-product">
+							<h3>Papel Hectografico</h3>
+							<p class="description">Papel hecotgrafico Kores</p>
+						</div>
+						<div class="price">$25</div>
+					</div>
+				</div>
+        <!-- Producto 9 -->
+        <div class="card"
+        data-producto="AquaSolid">
+					<div class="card-img">
+						<img
+							src="img/AquaSolid.png"
+							alt="producto-9"
+						/>
+					</div>
+					<div class="info-card">
+						<div class="text-product">
+							<h3>AquaSolid Sanink</h3>
+							<p class="description">Solidifica liquidos</p>
+						</div>
+						<div class="price">2oz x $60 y 4oz x $120</div>
+					</div>
+				</div>
+        <!-- Producto 10 -->
+        <div class="card"
+        data-producto="Dispensador Transparente">
+					<div class="card-img">
+						<img
+							src="img/Dispensador-Transparente.png"
+							alt="producto-10"
+						/>
+					</div>
+					<div class="info-card">
+						<div class="text-product">
+							<h3>Dispensador de espuma transparente</h3>
+							<p class="description">Dispensa espuma con solo aplastar la botella de 500ml</p>
+						</div>
+						<div class="price">$55</div>
+					</div>
+				</div>
+        <!-- Producto 11 -->
+        <div class="card"
+        data-producto="Dispensador de espuma">
+					<div class="card-img">
+						<img
+							src="img/Disensador-Espuma.png"
+							alt="producto-11"
+						/>
+					</div>
+					<div class="info-card">
+						<div class="text-product">
+							<h3>Dispensador de espuma</h3>
+							<p class="description">Dispensador de espuma. Rosa y Negro</p>
+						</div>
+						<div class="price">$45</div>
+					</div>
+				</div>
+        <!-- Producto 12 -->
+        <div class="card"
+        data-producto="Antibenzil Concentrado">
+					<div class="card-img">
+						<img
+							src="img/Antibenzil-Concentrado.png"
+							alt="producto-12"
+						/>
+					</div>
+					<div class="info-card">
+						<div class="text-product">
+							<h3>Antibenzil concentrado</h3>
+							<p class="description">Antibenzil concentrado de 1L Rosa</p>
+						</div>
+						<div class="price">$65</div>
+					</div>
+				</div>
+        <!-- Producto 13 -->
+        <div class="card"
+        data-producto="Antibenzil de 1L">
+					<div class="card-img">
+						<img
+							src="img/Antibenzil-1l.png"
+							alt="producto-13"
+						/>
+					</div>
+					<div class="info-card">
+						<div class="text-product">
+							<h3>Antibenzil concentrado</h3>
+							<p class="description">Antibenzil concentrado de 1L</p>
+						</div>
+						<div class="price">$85</div>
+					</div>
+				</div>
+        <!-- Producto 14 -->
+        <div class="card"
+        data-producto="Contenedor de residuos">
+					<div class="card-img">
+						<img
+							src="img/Contenedor.png"
+							alt="producto-14"
+						/>
+					</div>
+					<div class="info-card">
+						<div class="text-product">
+							<h3>Contenedor de residuos</h3>
+							<p class="description">Contenedor 4L para material punzocontartantes</p>
+						</div>
+						<div class="price">$80</div>
+					</div>
+				</div>
+        <!-- Producto 15 -->
+        <div class="card"
+        data-producto="Cubre Pen">
+					<div class="card-img">
+						<img
+							src="img/Cubre-Pen.png"
+							alt="producto-15"
+						/>
+					</div>
+					<div class="info-card">
+						<div class="text-product">
+							<h3>Cubre Pen</h3>
+							<p class="description">Black rose(5.5cm x 18cm. 200pcs)</p>
+						</div>
+						<div class="price">$88</div>
+					</div>
+				</div>
+        <!-- Producto 16 -->
+        <div class="card"
+        data-producto="Guantes Nitrilo">
+					<div class="card-img">
+						<img
+							src="img/Guantes-Nitrilo.png"
+							alt="producto-16"
+						/>
+					</div>
+					<div class="info-card">
+						<div class="text-product">
+							<h3>Guantes Nitrilo</h3>
+							<p class="description">Guantes Nitrilo CH, M, G</p>
+						</div>
+					</div>
+				</div>
+        <!-- Producto 17 -->
+        <div class="card"
+        data-producto="Transfer Boycott">
+					<div class="card-img">
+						<img
+							src="img/Transfer-Boycott.png"
+							alt="producto-17"
+						/>
+					</div>
+					<div class="info-card">
+						<div class="text-product">
+							<h3>Transfer Boycott</h3>
+							<p class="description">1oz - 30z</p>
+						</div>
+					</div>
+				</div>
+        <!-- Producto 18 -->
+        <div class="card"
+        data-producto="Desechables">
+					<div class="card-img">
+						<img
+							src="img/Desechables.png"
+							alt="producto-18"
+						/>
+					</div>
+					<div class="info-card">
+						<div class="text-product">
+							<h3>Desechables</h3>
+							<p class="description">Lip brushes- Cepillo para ceja y pestañas</p>
+						</div>
+					</div>
+				</div>
+        <!-- Producto 19 -->
+        <div class="card"
+        data-producto="Cartuchos para Tatuajes">
+					<div class="card-img">
+						<img
+							src="img/Cartuchos-Tatuajes.png"
+							alt="producto-19"
+						/>
+					</div>
+					<div class="info-card">
+						<div class="text-product">
+							<h3>Caruchos para tatuajes</h3>
+							<p class="description">Preguntar por medidas en existencia</p>
+						</div>
+					</div>
+				</div>
+        <!-- Producto 20 -->
+        <div class="card"
+        data-producto="Anestesia Tropica TKTK">
+					<div class="card-img">
+						<img
+							src="img/Anestesia-Topica.png"
+							alt="producto-20"
+						/>
+					</div>
+					<div class="info-card">
+						<div class="text-product">
+							<h3>Anestesia Topica TKTK</h3>
+							<p class="description">Anestesia en crema</p>
+						</div>
+					</div>
+				</div>
+        <!-- Producto 21 -->
+        <div class="card"
+        data-producto="Mixer para Tintas">
+					<div class="card-img">
+						<img
+							src="img/Mixer-Tintas.png"
+							alt="producto-21"
+						/>
+					</div>
+					<div class="info-card">
+						<div class="text-product">
+							<h3>Mixer para Tintas</h3>
+							<p class="description">Negro, Fushia, Morado y Blanco</p>
+						</div>
+					</div>
+				</div>
+        <!-- Producto 22 -->
+        <div class="card"
+        data-producto="Dynamic Triple Black">
+					<div class="card-img">
+						<img
+							src="img/Dynamic-Triple.png"
+							alt="producto-22"
+						/>
+					</div>
+					<div class="info-card">
+						<div class="text-product">
+							<h3>DYnamic Triple Black</h3>
+							<p class="description">1/2oz, 1 oz y 8oz</p>
+						</div>
+					</div>
+				</div>
+        <!-- Producto 23 -->
+        <div class="card"
+        data-producto="Witch Hanzel Zita">
+					<div class="card-img">
+						<img
+							src="img/Witch-Hazel.png"
+							alt="producto-23"
+						/>
+					</div>
+					<div class="info-card">
+						<div class="text-product">
+							<h3>Witch Hanzel Zita</h3>
+							<p class="description">Diluyente</p>
+						</div>
+					</div>
+				</div>
+        <!-- Producto 24 -->
+        <div class="card"
+        data-producto="Vitaminas A y D">
+					<div class="card-img">
+						<img
+							src="img/Vitamina-AyD.png"
+							alt="producto-24"
+						/>
+					</div>
+					<div class="info-card">
+						<div class="text-product">
+							<h3>Vitamina A y D</h3>
+							<p class="description">Crema para cuidado de tatuaje y micropigmentacion 5g</p>
+						</div>
+					</div>
+				</div>
+        <!-- Producto 25 -->
+        <div class="card"
+        data-producto="Retapas">
+					<div class="card-img">
+						<img
+							src="img/Retapas.jpg"
+							alt="producto-12"
+						/>
+					</div>
+					<div class="info-card">
+						<div class="text-product">
+							<h3>Retapas</h3>
+							<p class="description">Retapas(Cups) CH, M, G</p>
+						</div>
+					</div>
+				</div>
+        <!-- Producto 26 -->
+        <div class="card"
+        data-producto="Cinta Cubre Grip">
+					<div class="card-img">
+						<img
+							src="img/Cinta-Cubre-Grip.jpg"
+							alt="producto-26"
+						/>
+					</div>
+					<div class="info-card">
+						<div class="text-product">
+							<h3>Cinta Cubre Grip</h3>
+							<p class="description">Cinta Cubre Grip 5cm de ancho</p>
+						</div>
+					</div>
+				</div>
+      </div>
+    </section>
+     <script>
+      const numeroWhatsApp = '529971129207';
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        card.addEventListener('click', () => {
+          const producto = card.getAttribute('data-producto');
+          const mensaje = `Hola! Me interesa este producto:
 
-  <style>
-    .title-pink {
-      color: #e0006c;
-      font-size: 2.25rem;
-    }
+📦 ${producto}
 
-    .font-pink {
-      color: #aa0a57;
-      font-size: 1.25rem;
-      padding-left: 2rem;
-    }
-
-    .title-centered {
-      text-align: center;
-    }
-    .title-box {
-      background-color: #f3f4f6;
-      padding: 2rem 2rem;
-      border-radius: 1rem;
-      text-align: center;
-    }
-    
-    .stock-opciones {
-      display: flex;
-      flex-direction: column; 
-      gap: 0.5rem;
-      padding-left: 2rem;
-    }
-  </style>
-</head>
-
-<body class="min-h-screen flex flex-col items-center justify-center text-gray-900 p-4">
-
-  <h1 class="title-pink mb-10 tracking-wide drop-shadow-lg title-centered title-box">
-    Nuestros Productos
-  </h1>
-  <div class="space-y-4">
-  <h3 class="text-lg font-bold text-red-600 uppercase font-pink">Stock</h3>
-  <div class="stock-opciones">
-    <label class="flex items-center text-sm cursor-pointer">
-      <input
-        type="checkbox"
-        name="stockFilter"
-        value="inStock"
-        class="form-checkbox h-4 w-4 text-gray-800 border-gray-300 rounded focus:ring-gray-800"
-      />
-      <span class="ml-2 text-gray-800">En Stock</span>
-    </label>
-
-    <label class="flex items-center text-sm cursor-pointer">
-      <input
-        type="checkbox"
-        name="stockFilter"
-        value="outOfStock"
-        class="form-checkbox h-4 w-4 text-gray-800 border-gray-300 rounded focus:ring-gray-800"
-      />
-      <span class="ml-2 text-gray-800">Agotado</span>
-    </label>
-  </div>
-</div>
-</body>
+¿Está disponible?`;
+          
+          const mensajeCodificado = encodeURIComponent(mensaje);
+          const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensajeCodificado}`;
+          
+          window.open(urlWhatsApp, '_blank');
+        });
+      });
+    </script>
+  </body>
 </html>
